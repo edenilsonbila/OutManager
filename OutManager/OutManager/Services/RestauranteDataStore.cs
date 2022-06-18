@@ -20,35 +20,35 @@ namespace OutManager.Services
             connection.CreateTable<Restaurant>();
         }
 
-        Task<bool> IDataStore<Restaurant>.AddItem(Restaurant item)
+        public async Task<bool> AddItem(Restaurant item)
         {
             var rowsInserted = connection.Insert(item);
             if (rowsInserted > 0)
-                return Task.FromResult(true);
+                return await Task.FromResult(true);
             else
-                return Task.FromResult(false);
+                return await Task.FromResult(false);
         }
 
-        Task<bool> IDataStore<Restaurant>.DeleteItem(int id)
+        public Task<bool> DeleteItem(int id)
         {
-            var rowsDeleted = connection.Delete(connection.Table<Restaurant>().FirstOrDefault(e => e.Id == id));
+            var rowsDeleted = connection.Delete(connection.Table<Usuario>().FirstOrDefault(e => e.Id == id));
             if (rowsDeleted > 0)
                 return Task.FromResult(true);
             else
                 return Task.FromResult(false);
         }
 
-        Task<Restaurant> IDataStore<Restaurant>.GetItem(int id)
+        public Task<Restaurant> GetItem(int id)
         {
             return Task.FromResult(connection.Table<Restaurant>().FirstOrDefault(e => e.Id == id));
         }
 
-        Task<List<Restaurant>> IDataStore<Restaurant>.GetItems(bool forceRefresh)
+        public Task<List<Restaurant>> GetItems(bool forceRefresh = false)
         {
             return Task.FromResult(connection.Table<Restaurant>().ToList());
         }
 
-        Task<bool> IDataStore<Restaurant>.UpdateItem(Restaurant item)
+        public Task<bool> UpdateItem(Restaurant item)
         {
             var updatedRows = connection.Update(item);
             if (updatedRows > 0)

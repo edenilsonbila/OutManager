@@ -13,7 +13,7 @@ namespace OutManager
             InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
-            Routing.RegisterRoute(nameof(FuncionarioViewModel), typeof(FuncionarioViewModel));
+            Routing.RegisterRoute(nameof(CadastroRestaurantePage), typeof(CadastroRestaurantePage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

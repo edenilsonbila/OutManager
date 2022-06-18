@@ -15,18 +15,25 @@ namespace OutManager.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FuncionarioPage : ContentPage
     {
+        FuncionarioViewModel _viewModel;
+
         public FuncionarioPage(Usuario user)
         {
             InitializeComponent();
 
-            BindingContext = new FuncionarioViewModel();
-            userLogado.Text = user.Nome.ToTitleCase();
+            BindingContext = _viewModel = new FuncionarioViewModel(Navigation);
+            //userLogado.Text = user.Nome.ToTitleCase();
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+            //Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
         }
     }
 }

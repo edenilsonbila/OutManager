@@ -25,18 +25,16 @@ namespace OutManager.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            NavigationPage.SetHasBackButton(this, false);
             //valida se já esta logado
             if (Application.Current.Properties.ContainsKey("usersession"))
             {
                 var userId = int.Parse(Application.Current.Properties["usersession"].ToString());
                 var user = usuarioDataStore.GetItem(userId).Result;
-                OpenPage(new FuncionarioPage(user));
+                Navigation.PushAsync(new FuncionarioPage(user));
             }
         }
 
-        public async Task OpenPage(Page page)
-        {
-            await Navigation.PushAsync(page);
-        }
+
     }
 }
