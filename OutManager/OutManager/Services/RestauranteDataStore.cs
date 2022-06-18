@@ -31,7 +31,11 @@ namespace OutManager.Services
 
         public Task<bool> DeleteItem(int id)
         {
-            var rowsDeleted = connection.Delete(connection.Table<Usuario>().FirstOrDefault(e => e.Id == id));
+            var itemToDelete = connection.Table<Restaurant>().FirstOrDefault(e => e.Id == id);
+            if(itemToDelete == null)
+                return Task.FromResult(true);
+
+            var rowsDeleted = connection.Delete(itemToDelete);
             if (rowsDeleted > 0)
                 return Task.FromResult(true);
             else

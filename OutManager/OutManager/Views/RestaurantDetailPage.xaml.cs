@@ -4,12 +4,12 @@ using Xamarin.Forms;
 
 namespace OutManager.Views
 {
-    public partial class ItemDetailPage : ContentPage
+    public partial class RestaurantDetailPage : ContentPage
     {
-        public ItemDetailPage()
+        public RestaurantDetailPage()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = new RestaurantDetailViewModel();
         }
     }
 }
