@@ -25,7 +25,7 @@
                 <Label Text="Usuário" FontSize="Medium" />
                 <Entry Text="{Binding Usuario, Mode=TwoWay}" FontSize="Medium" />
                 <Label Text="Senha" FontSize="Medium" />
-                <Editor Text="{Binding Senha, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+                <Entry Text="{Binding Senha, Mode=TwoWay}" IsPassword="True" FontSize="Medium" Margin="0" />
                 <Button VerticalOptions="Center" Text="Acessar" Command="{Binding LoginCommand}"/>
             </StackLayout>
         </ScrollView>

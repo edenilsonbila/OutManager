@@ -11,5 +11,16 @@ namespace OutManager.Views
         {
             InitializeComponent();
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var existingPages = Navigation.NavigationStack;
+            foreach (var page in existingPages)
+            {
+                if(page != null)
+                Navigation.RemovePage(page);
+            }
+        }
     }
 }

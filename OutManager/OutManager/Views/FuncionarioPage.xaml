@@ -4,9 +4,9 @@
              x:Class="OutManager.Views.FuncionarioPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Bem vindo: " FontSize="20"  HorizontalOptions="Center"></Label>
+            <Label x:Name="userLogado" FontSize="20"  HorizontalOptions="Center"></Label>
+            <Button Text="Cadastrar Estabelecimento" VerticalOptions="CenterAndExpand"  Visual="Material" Margin="10,0" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

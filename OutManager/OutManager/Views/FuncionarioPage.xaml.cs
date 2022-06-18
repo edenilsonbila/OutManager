@@ -1,4 +1,7 @@
-﻿using System;
+﻿using OutManager.Helpers;
+using OutManager.Models;
+using OutManager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +15,18 @@ namespace OutManager.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FuncionarioPage : ContentPage
     {
-        public FuncionarioPage()
+        public FuncionarioPage(Usuario user)
         {
             InitializeComponent();
+
+            BindingContext = new FuncionarioViewModel();
+            userLogado.Text = user.Nome.ToTitleCase();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
         }
     }
 }

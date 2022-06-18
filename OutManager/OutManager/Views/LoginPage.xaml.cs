@@ -1,4 +1,5 @@
-﻿using OutManager.ViewModels;
+﻿using OutManager.Services;
+using OutManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +13,25 @@ namespace OutManager.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        private UsuarioDataStore usuarioDataStore;
         public LoginPage()
         {
             InitializeComponent();
 
             this.BindingContext = new LoginViewModel(Navigation);
+            usuarioDataStore = new UsuarioDataStore();
+        }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             //valida se já esta logado
             if (Application.Current.Properties.ContainsKey("usersession"))
             {
-                OpenPage(new ItemsPage());
+                var userId = int.Parse(Application.Current.Properties["usersession"].ToString());
+                var user = usuarioDataStore.GetItem(userId).Result;
+                OpenPage(new FuncionarioPage(user));
             }
-
         }
 
         public async Task OpenPage(Page page)
