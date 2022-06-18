@@ -15,8 +15,6 @@ namespace OutManager.ViewModels
     {
         #region Declaracao
         public ObservableCollection<Restaurant> RestauranteItems { get; }
-        public Command CadastrarCommand { get; }
-        public Command HomeCommand { get; }
 
         public INavigation _navigation;
 
@@ -25,6 +23,9 @@ namespace OutManager.ViewModels
 
         #region Commands
         public Command CarregarRestaurantsCommand { get; }
+        public Command<Restaurant> ItemTapped { get; }
+        public Command CadastrarCommand { get; }
+        public Command HomeCommand { get; }
         #endregion
 
         public FuncionarioViewModel(INavigation navigation)
@@ -32,6 +33,9 @@ namespace OutManager.ViewModels
             RestauranteItems = new ObservableCollection<Restaurant>();
             CadastrarCommand = new Command(ComandoCadastro);
             HomeCommand = new Command(ComandoHome);
+
+            ItemTapped = new Command<Restaurant>(OnItemSelected);
+
             CarregarRestaurantsCommand = new Command(async () => await ComandoCarregar());
             _navigation = navigation;
             _restauranteDataStore = new RestauranteDataStore();
@@ -73,6 +77,15 @@ namespace OutManager.ViewModels
         private async void ComandoCadastro(object obj)
         {
             await _navigation.PushAsync(new CadastroRestaurantePage());
+        }
+
+        async void OnItemSelected(Restaurant item)
+        {
+            if (item == null)
+                return;
+
+            // This will push the ItemDetailPage onto the navigation stack
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
     }
 }
