@@ -12,6 +12,9 @@
         <Entry Text="{Binding Nome}" FontSize="Medium" />
         <Label Text="Endereco" FontSize="Medium" />
         <Editor Text="{Binding Endereco}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Salvar" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+        </StackLayout>
     </StackLayout>
     
 </ContentPage>

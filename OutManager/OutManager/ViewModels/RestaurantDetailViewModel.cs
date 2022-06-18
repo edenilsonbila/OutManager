@@ -11,11 +11,13 @@ namespace OutManager.ViewModels
     public class RestaurantDetailViewModel : BaseViewModel
     {
         public Command DeleteCommand { get; }
+        public Command SaveCommand { get; }
 
         private RestauranteDataStore _restauranteDataStore;
         public RestaurantDetailViewModel()
         {
             DeleteCommand = new Command(ComandoDelete);
+            SaveCommand = new Command(OnSave);
             _restauranteDataStore = new RestauranteDataStore();
         }
         private string itemId;
@@ -75,6 +77,32 @@ namespace OutManager.ViewModels
             {
                 Debug.WriteLine("Failed to Load Item");
             }
+        }
+
+        private async void OnSave()
+        {
+            if (string.IsNullOrEmpty(Nome))
+            {
+                await App.Current.MainPage.DisplayAlert("Alerta", "Favor informar o nome do restaurante", "OK");
+                return;
+            }
+            if (string.IsNullOrEmpty(Endereco))
+            {
+                await App.Current.MainPage.DisplayAlert("Alerta", "Favor informar o endereco do restaurante", "OK");
+                return;
+            }
+
+            var restaurant = new Restaurant()
+            {
+                Id = Id,
+                Nome = Nome,
+                Endereco = Endereco
+            };
+
+            await _restauranteDataStore.UpdateItem(restaurant);
+
+            // This will pop the current page off the navigation stack
+            await Shell.Current.GoToAsync("..");
         }
     }
 }
