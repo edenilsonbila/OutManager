@@ -35,5 +35,14 @@ namespace OutManager.Views
             base.OnDisappearing();
             //Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
         }
+
+        private void ContentPage_Focused(object sender, FocusEventArgs e)
+        {
+            //valida se já esta logado
+            if (!Application.Current.Properties.ContainsKey("usersession"))
+            {
+                Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+            }
+        }
     }
 }
