@@ -10,7 +10,6 @@ namespace OutManager.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Nome { get; set; }
-        public string Logradouro { get; set; }
         public string Endereco { get; set; }
     }
 }

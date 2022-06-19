@@ -1,5 +1,4 @@
 ﻿using OutManager.Models;
-using OutManager.Services;
 using OutManager.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -9,27 +8,24 @@ using Xamarin.Forms;
 
 namespace OutManager.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class EmployeeViewModel : BaseViewModel
     {
         private Item _selectedItem;
 
-        private RestauranteDataStore _restauranteDataStore;
-
-        public ObservableCollection<Restaurant> Items { get; }
+        public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
 
-        public ItemsViewModel()
+        public EmployeeViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Restaurant>();
+            Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             ItemTapped = new Command<Item>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
-            _restauranteDataStore = new RestauranteDataStore();
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -39,7 +35,7 @@ namespace OutManager.ViewModels
             try
             {
                 Items.Clear();
-                var items = new ObservableCollection<Restaurant>(_restauranteDataStore.GetItems().Result);
+                var items = await DataStore.GetItems(true);
                 foreach (var item in items)
                 {
                     Items.Add(item);

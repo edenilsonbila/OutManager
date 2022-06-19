@@ -4,8 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="OutManager.Views.LoginPage"
-             Shell.NavBarIsVisible="True">
+             x:Class="OutManager.Views.LoginPage">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -25,7 +24,7 @@
                 <Label Text="Usuário" FontSize="Medium" />
                 <Entry Text="{Binding Usuario, Mode=TwoWay}" FontSize="Medium" />
                 <Label Text="Senha" FontSize="Medium" />
-                <Editor Text="{Binding Senha, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+                <Entry Text="{Binding Senha, Mode=TwoWay}" IsPassword="True" FontSize="Medium" Margin="0" />
                 <Button VerticalOptions="Center" Text="Acessar" Command="{Binding LoginCommand}"/>
             </StackLayout>
         </ScrollView>

@@ -42,19 +42,24 @@ namespace OutManager.ViewModels
 
         private async void OnLoginClicked(object obj)
         {
-            var usuario = Usuario;
-            var senha = Senha;
+            if(string.IsNullOrEmpty(Usuario) || string.IsNullOrEmpty(Senha))
+            {
+                await App.Current.MainPage.DisplayAlert("Ops", "Favor informar usuário e senha", "OK");
+                return;
+            }
 
             var users = await usuarioDataStore.GetItems();
-            var usuarioLocalizado = users.FirstOrDefault(e => e.Login == usuario && e.Senha == senha);
+            var usuarioLocalizado = users.FirstOrDefault(e => e.Login == Usuario && e.Senha == Senha);
 
             if (usuarioLocalizado != null)
             {
-                Navigation.PushAsync(new FuncionarioPage());
+                Application.Current.Properties.Clear();
+                Application.Current.Properties["usersession"] = usuarioLocalizado.Id;
+                await Navigation.PushAsync(new FuncionarioPage(usuarioLocalizado));
             }
             else
             {
-                App.Current.MainPage.DisplayAlert("Ops", "Usuário não localizado", "OK");
+                await App.Current.MainPage.DisplayAlert("Ops", "Usuário não localizado", "OK");
             }
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
         }
