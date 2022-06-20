@@ -12,7 +12,7 @@ namespace OutManager
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(RestaurantDetailPage), typeof(RestaurantDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(InformarLotacao), typeof(InformarLotacao));
             Routing.RegisterRoute(nameof(CadastroRestaurantePage), typeof(CadastroRestaurantePage));
             Application.Current.Properties.Clear();
         }
@@ -20,7 +20,7 @@ namespace OutManager
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
             Application.Current.Properties.Clear();
-            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
 
     }

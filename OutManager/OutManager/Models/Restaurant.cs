@@ -13,5 +13,7 @@ namespace OutManager.Models
         public string Endereco { get; set; }
         public string Lat { get; set; }
         public string Long { get; set; }
+
+        public string Lotacao { get; set; }
     }
 }

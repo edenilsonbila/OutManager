@@ -75,7 +75,7 @@ namespace OutManager.ViewModels
             }
             catch (Exception)
             {
-                Debug.WriteLine("Failed to Load Item");
+                Debug.WriteLine("Falha ao carregar item");
             }
         }
 

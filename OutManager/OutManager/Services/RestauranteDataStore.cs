@@ -11,6 +11,7 @@ namespace OutManager.Services
     public class RestauranteDataStore : IDataStore<Restaurant>
     {
         private SQLite.SQLiteConnection connection;
+        private SQLite.SQLiteConnection connectionLotacao;
 
         public RestauranteDataStore()
         {
@@ -18,6 +19,8 @@ namespace OutManager.Services
             var caminho = System.IO.Path.Combine(dbPathConfig.Path, "outmanager.db");
             connection = new SQLite.SQLiteConnection(caminho);
             connection.CreateTable<Restaurant>();
+            connectionLotacao = new SQLite.SQLiteConnection(caminho);
+            connectionLotacao.CreateTable<RestauranteLotacao>();
         }
 
         public async Task<bool> AddItem(Restaurant item)
@@ -59,6 +62,20 @@ namespace OutManager.Services
                 return Task.FromResult(true);
             else
                 return Task.FromResult(false);
+        }
+
+        public Task<bool> InformarLotacao(RestauranteLotacao item)
+        {
+            var updatedRows = connectionLotacao.Insert(item);
+            if (updatedRows > 0)
+                return Task.FromResult(true);
+            else
+                return Task.FromResult(false);
+        }
+
+        public Task<List<RestauranteLotacao>> GetLotacoesPorRestaurante(string id)
+        {
+            return Task.FromResult(connectionLotacao.Table<RestauranteLotacao>().Where(e => e.RestaurantId == id).ToList());
         }
     }
 }

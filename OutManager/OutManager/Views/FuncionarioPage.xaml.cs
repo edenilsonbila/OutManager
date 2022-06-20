@@ -33,7 +33,7 @@ namespace OutManager.Views
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            //Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+            //Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
 
         private void ContentPage_Focused(object sender, FocusEventArgs e)
