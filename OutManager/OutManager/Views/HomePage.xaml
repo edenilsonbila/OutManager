@@ -1,22 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OutManager.Views.ItemsPage"
-             Title="{Binding Title}"
+             x:Class="OutManager.Views.HomePage"
              xmlns:local="clr-namespace:OutManager.ViewModels"  
-             xmlns:model="clr-namespace:OutManager.Models"  
-             x:Name="BrowseItemsPage">
+             xmlns:model="clr-namespace:OutManager.Models"
+             Shell.NavBarIsVisible="True"
+             Title="{Binding Title}">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
-    </ContentPage.ToolbarItems>
-    <!--
-      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
-      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
-    -->
-    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView x:Name="ItemsListView"
-                ItemsSource="{Binding Items}"
+    
+    <RefreshView x:DataType="local:HomeViewModel" Command="{Binding CarregarRestaurantsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="RestaurantesProximosListView"
+                ItemsSource="{Binding RestauranteItems}"
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -29,10 +23,14 @@
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
                             FontSize="13" />
+                        <Label Text="{Binding Lotacao}" 
+                            LineBreakMode="NoWrap"
+                            FontSize="14" />
+
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=ItemTapped}"		
                                 CommandParameter="{Binding .}">
                             </TapGestureRecognizer>
                         </StackLayout.GestureRecognizers>
@@ -41,4 +39,5 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </RefreshView>
+
 </ContentPage>

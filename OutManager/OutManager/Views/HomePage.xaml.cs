@@ -1,15 +1,19 @@
-﻿using System;
+﻿using OutManager.ViewModels;
+using System;
 using System.ComponentModel;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace OutManager.Views
 {
-    public partial class AboutPage : ContentPage
+    public partial class HomePage : ContentPage
     {
-        public AboutPage()
+        public HomePage()
         {
             InitializeComponent();
+
+            BindingContext = new HomeViewModel();
         }
 
         protected override void OnAppearing()

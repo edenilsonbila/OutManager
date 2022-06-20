@@ -2,8 +2,12 @@
 using OutManager.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.GoogleMaps;
+
 
 namespace OutManager.ViewModels
 {
@@ -59,10 +63,35 @@ namespace OutManager.ViewModels
                 return;
             }
 
+            //busca a localizacao do endereco
+            var lat = "";
+            var longi = "";
+            try
+            {
+                Geocoder geocoder = new Geocoder();
+                Task<IEnumerable<Position>> resultado = geocoder.GetPositionsForAddressAsync(Endereco);
+
+                IEnumerable<Position> posicoes = await resultado;
+
+                //pega o primeiro
+                foreach (var item in posicoes)
+                {
+                    lat = item.Latitude.ToString();
+                    longi = item.Longitude.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+           
+
             var restaurant = new Restaurant()
             {
                 Nome = Nome,
-                Endereco = Endereco
+                Endereco = Endereco,
+                Lat = lat,
+                Long = longi
             };
 
             await _restaurantDataStore.AddItem(restaurant);
